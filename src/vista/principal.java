@@ -589,7 +589,10 @@ public class principal extends javax.swing.JFrame {
         codCategoria.mostrarTablaCateogira(tablaCategoria);
 
         codCategoria.llenarComboCategoria(cboRegCategoria);
+        codCategoria.llenarComboCategoria(cboCategoria);
         codCategoria.llenarComboCategoria(cboCategoriaFiltro);
+         txtCategoria.setText("");
+        
     }//GEN-LAST:event_btnRegistrarCategoriaActionPerformed
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
@@ -633,10 +636,13 @@ public class principal extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         dialogCategoria.dispose();
+        txtCategoria.setText("");
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         dialogProducto.dispose();
+        txtRegPrecio.setText("");
+        txtRegProducto.setText("");
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void btnRegProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegProductoActionPerformed
@@ -646,6 +652,9 @@ public class principal extends javax.swing.JFrame {
         codProducto.setPrecio(Double.parseDouble(txtRegPrecio.getText()));
         codProducto.registrarProducto();
         codProducto.llenarComboProducto(cboProducto);
+        
+        txtRegPrecio.setText("");
+        txtRegProducto.setText("");
 
     }//GEN-LAST:event_btnRegProductoActionPerformed
 
