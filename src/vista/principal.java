@@ -504,12 +504,13 @@ public class principal extends javax.swing.JFrame {
                             .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(txtAnio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(txtMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
-                            .addComponent(txtProforma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(txtDia, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel2))
                             .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(txtDia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel2))))
+                                .addComponent(jLabel1)
+                                .addComponent(txtProforma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -586,6 +587,9 @@ public class principal extends javax.swing.JFrame {
         codCategoria.setCategoria(txtCategoria.getText().toString());
         codCategoria.nuevoCategoria();
         codCategoria.mostrarTablaCateogira(tablaCategoria);
+
+        codCategoria.llenarComboCategoria(cboRegCategoria);
+        codCategoria.llenarComboCategoria(cboCategoriaFiltro);
     }//GEN-LAST:event_btnRegistrarCategoriaActionPerformed
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
@@ -617,7 +621,8 @@ public class principal extends javax.swing.JFrame {
         txtImporte.setText("");
         txtProducto.setText("");
         txtProducto.setEnabled(false);
-        cboProducto.setEnabled(false);
+        txtProducto.setEnabled(false);
+        cboProducto.setEnabled(true);
         chek.setSelected(false);
         checkPaquete.setSelected(false);
     }//GEN-LAST:event_btnRegistrarActionPerformed
@@ -640,7 +645,7 @@ public class principal extends javax.swing.JFrame {
         codProducto.setProducto(txtRegProducto.getText());
         codProducto.setPrecio(Double.parseDouble(txtRegPrecio.getText()));
         codProducto.registrarProducto();
-
+        codProducto.llenarComboProducto(cboProducto);
 
     }//GEN-LAST:event_btnRegProductoActionPerformed
 
@@ -675,9 +680,9 @@ public class principal extends javax.swing.JFrame {
         codProforma.setProducto(txtProductoFiltro.getText());
         codProforma.setCategoria(cboCategoriaFiltro.getSelectedItem().toString());
         codProforma.llenarTablaItems(tablaItems);
-        
-        txtTotal.setText(""+codProforma.sumarFilas(tablaItems));
-                
+
+        txtTotal.setText("" + codProforma.sumarFilas(tablaItems));
+
     }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
@@ -775,4 +780,3 @@ public class principal extends javax.swing.JFrame {
     private javax.swing.JTextField txtTotal;
     // End of variables declaration//GEN-END:variables
 }
-

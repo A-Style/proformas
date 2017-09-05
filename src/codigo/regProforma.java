@@ -63,8 +63,8 @@ public class regProforma {
             query = "  SELECT detpro.cantidad,cat.nomCategoria,prod.producto,prod.precio,detpro.importe FROM tproforma prof INNER JOIN tdetaproforma detpro ON prof.idProforma=detpro.idProforma\n"
                     + "INNER JOIN tproductos prod ON prod.idProducto=detpro.idProducto\n"
                     + "INNER JOIN tcategoria cat ON cat.idCategoria=prod.idCategoria\n"
-                    + "WHERE prod.producto LIKE '%" + getProducto() + "%'";
-            //+ "WHERE prof.nroProforma LIKE '%" + getNumProforma() + "%' OR prod.producto LIKE '%" + getProducto() + "%' OR cat.nomCategoria LIKE '%" + getCategoria() + "%'";
+                    //+ "WHERE prod.producto LIKE '%" + getProducto() + "%'";
+                    + "WHERE prof.nroProforma LIKE '%" + getNumProforma() + "%' and prod.producto LIKE '%" + getProducto() + "%' and cat.nomCategoria LIKE '%" + getCategoria() + "%'";
             // st = c.conectar().prepareStatement(query);
             // pst.setString(1, getNumProforma());
             // pst.setString(2, getProducto());
@@ -101,13 +101,13 @@ public class regProforma {
     }
 
     public double sumarFilas(JTable tab) {
-         double total=0;
+        double total = 0;
         try {
-           
-            for (int fila = 0; fila <tab.getRowCount(); fila++) {
 
-                total = total+Double.parseDouble(tab.getValueAt(fila, 4).toString());               
-                
+            for (int fila = 0; fila < tab.getRowCount(); fila++) {
+
+                total = total + Double.parseDouble(tab.getValueAt(fila, 4).toString());
+
             }
         } catch (Exception e) {
             System.out.println("codigo.regProforma.sumarFilas(): " + e);

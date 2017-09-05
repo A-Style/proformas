@@ -17,7 +17,10 @@ public class conexion {
         this.database = "dbproformas";
         this.user = "root";
         this.password = "";
-        this.link = "jdbc:mysql://" + this.host + "/" + this.database;
+        this.link = "jdbc:mysql://" + this.host + "/" + this.database
+                + "?verifyServerCertificate=false"
+                + "&useSSL=false"
+                + "&requireSSL=false";
     }
 
     public Connection conectar() {
