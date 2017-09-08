@@ -60,32 +60,44 @@ public class regProforma {
     public void llenarTablaItems(JTable tab) {
         try {
 
-            query = "  SELECT detpro.cantidad,cat.nomCategoria,prod.producto,prod.precio,detpro.importe FROM tproforma prof INNER JOIN tdetaproforma detpro ON prof.idProforma=detpro.idProforma\n"
-                    + "INNER JOIN tproductos prod ON prod.idProducto=detpro.idProducto\n"
-                    + "INNER JOIN tcategoria cat ON cat.idCategoria=prod.idCategoria\n"
-                    //+ "WHERE prod.producto LIKE '%" + getProducto() + "%'";
+            query = "SELECT "
+                    + "prof.nroProforma,"
+                    + "prof.fecha,"
+                    + "CASE detpro.tipo WHEN 'U' THEN 'Unidad' WHEN 'P' THEN 'Paquete' END 'tipo',"
+                    + "detpro.cantidad,"
+                    + "cat.nomCategoria,"
+                    + "prod.producto,"
+                    + "prod.precio,"
+                    + "detpro.importe"
+                    + " FROM tproforma prof \n"
+                    + "INNER JOIN tdetaproforma detpro ON prof.idProforma=detpro.idProforma \n"
+                    + "INNER JOIN tproductos prod ON prod.idProducto=detpro.idProducto \n"
+                    + "INNER JOIN tcategoria cat ON cat.idCategoria=prod.idCategoria \n"
                     + "WHERE prof.nroProforma LIKE '%" + getNumProforma() + "%' and prod.producto LIKE '%" + getProducto() + "%' and cat.nomCategoria LIKE '%" + getCategoria() + "%'";
-            // st = c.conectar().prepareStatement(query);
-            // pst.setString(1, getNumProforma());
-            // pst.setString(2, getProducto());
-            // pst.setString(3, getCategoria());
+
             st = c.conectar().createStatement();
             rs = st.executeQuery(query);
 
             DefaultTableModel model = new DefaultTableModel();
-            model.addColumn("Cantidad");
-            model.addColumn("Categoria");
-            model.addColumn("Descripcion");
-            model.addColumn("P. Unitario");
-            model.addColumn("Importe");
+            model.addColumn("Proforma");//String
+            model.addColumn("fecha");//String
+            model.addColumn("U.Medida");//String
+            model.addColumn("Cantidad");//Integer
+            model.addColumn("Categoria");//String
+            model.addColumn("Descripcion");//String
+            model.addColumn("P. Unitario");//Double
+            model.addColumn("Importe");//Double
 
-            Object[] fila = new Object[5];
+            Object[] fila = new Object[8];
             while (rs.next()) {
-                fila[0] = rs.getInt(1);
+                fila[0] = rs.getString(1);
                 fila[1] = rs.getString(2);
                 fila[2] = rs.getString(3);
-                fila[3] = rs.getDouble(4);
-                fila[4] = rs.getDouble(5);
+                fila[3] = rs.getInt(4);
+                fila[4] = rs.getString(5);
+                fila[5] = rs.getString(6);
+                fila[6] = rs.getDouble(7);
+                fila[7] = rs.getDouble(8);
 
                 model.addRow(fila);
             }
@@ -106,7 +118,7 @@ public class regProforma {
 
             for (int fila = 0; fila < tab.getRowCount(); fila++) {
 
-                total = total + Double.parseDouble(tab.getValueAt(fila, 4).toString());
+                total = total + Double.parseDouble(tab.getValueAt(fila, 8).toString());
 
             }
         } catch (Exception e) {
