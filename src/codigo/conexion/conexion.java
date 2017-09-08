@@ -1,4 +1,4 @@
-package codigo;
+package codigo.conexion;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -18,6 +18,7 @@ public class conexion {
 
     public conexion() {
         this.host = "localhost:3306";
+        //this.host = "192.168.1.206";
         this.database = "dbproformas";
         this.user = "root";
         this.password = "";
@@ -31,13 +32,13 @@ public class conexion {
         c = null;
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            //c = DriverManager.getConnection(this.link, this.user, this.password);
-            c = DriverManager.getConnection(leerDatos()[0], leerDatos()[1], leerDatos()[2]);
+            c = DriverManager.getConnection(this.link, this.user, this.password);
+            //c = DriverManager.getConnection(leerDatos()[0], leerDatos()[1], leerDatos()[2]);
             System.out.println("Conexion Exitosa");
         } catch (Exception e) {
             System.out.println("Error en Conexion: " + e);
         }
-      
+
         return c;
     }
 
@@ -48,7 +49,6 @@ public class conexion {
         } catch (Exception e) {
         }
     }
-    
 
     private String[] leerDatos() {
         String contenido;
@@ -61,25 +61,24 @@ public class conexion {
         String database;
 
         try {
-           
+
             String texto = "";
             String[] con = new String[3];
-            
+
             //RUTA PARA DESARROLLO
             //File f = new File(getClass().getResource("../config/configuracion.txt").getFile());
-            
             //RUTA PARA COMPILACION
             File f = new File("C:\\configProforma.txt");
-            
+
             FileReader fr = new FileReader(f);
             BufferedReader bfr = new BufferedReader(fr);
-            
+
             while (bfr.ready()) {
                 //texto = bfr.readLine();
                 datos[0] = "jdbc:mysql://" + bfr.readLine() + "/" + bfr.readLine() + "?verifyServerCertificate=false"
                         + "&useSSL=false"
                         + "&requireSSL=false";
-                datos[1] =bfr.readLine();
+                datos[1] = bfr.readLine();
                 datos[2] = bfr.readLine();
 
                 //System.out.println(con[0]+con[1]+con[2]+con[3]);
@@ -87,9 +86,9 @@ public class conexion {
 
         } catch (Exception e) {
             //System.out.println("Error al leer datos del txt: " + e);
-            JOptionPane.showMessageDialog(null,"Error al leer datos del txt: " + e);
+            JOptionPane.showMessageDialog(null, "Error al leer datos del txt: " + e);
         }
-        
+
         return datos;
     }
 

@@ -1,5 +1,6 @@
 package codigo;
 
+import codigo.conexion.conexion;
 import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -58,8 +59,7 @@ public class regProducto {
         }
     }
     
-    
-    
+   
     
     
 

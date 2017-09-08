@@ -1,18 +1,20 @@
-package codigo;
+package codigo.proforma;
 
+import codigo.conexion.conexion;
 import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-public class regProforma {
+public class codProf_Registros {
 
-    private String numProforma, Producto, fecha, tipo, categoria;
-    private double precioUnitario, importe;
-    private int cantidad;
+    private String numProforma, Producto, fecha, tipo, categoria,miniCodigo;
+    private double precioUnitario,precio, importe;
+    private int cantidad,formato;
 
     private PreparedStatement pst;
     private Statement st;
@@ -20,6 +22,24 @@ public class regProforma {
     private ResultSet rs;
     private String query = "";
     conexion c = new conexion();
+
+    
+//GENERACION DE PROFORMA
+    public void registrarProforma() {
+        try {
+            query = "INSERT INTO tProforma(nroProforma,fecha) VALUES(?,?);";
+            pst = c.conectar().prepareStatement(query);
+            pst.setString(1, getNumProforma());
+            pst.setString(2, getFecha());
+            pst.execute();
+
+            JOptionPane.showMessageDialog(null, "Proforma Registrado");
+        } catch (Exception e) {
+            System.out.println("codigo.regProforma.registrarProforma() " + e);
+        } finally {
+            c.desconectar();
+        }
+    }
 
     public void registroItem() {
         try {
@@ -40,23 +60,7 @@ public class regProforma {
             c.desconectar();
         }
     }
-
-    public void registrarProforma() {
-        try {
-            query = "INSERT INTO tProforma(nroProforma,fecha) VALUES(?,?);";
-            pst = c.conectar().prepareStatement(query);
-            pst.setString(1, getNumProforma());
-            pst.setString(2, getFecha());
-            pst.execute();
-
-            JOptionPane.showMessageDialog(null, "Proforma Registrado");
-        } catch (Exception e) {
-            System.out.println("codigo.regProforma.registrarProforma() " + e);
-        } finally {
-            c.desconectar();
-        }
-    }
-
+    
     public void llenarTablaItems(JTable tab) {
         try {
 
@@ -111,6 +115,52 @@ public class regProforma {
             c.desconectar();
         }
     }
+    
+    /*REGISTROS DE CATEGORIAS*/
+    public void nuevoCategoria() {
+        try {
+            query = "INSERT INTO tcategoria(nomCategoria) VALUES(?)";
+            pst = c.conectar().prepareStatement(query);
+            pst.setString(1, getCategoria());
+            pst.execute();
+            JOptionPane.showMessageDialog(null, "Se registro la Categoria");
+        } catch (Exception e) {
+            System.out.println("Error en regCategoria.nuevoCategoria: " + e);
+        } finally {
+            c.desconectar();
+        }
+    }
+    
+    
+    /*REGISTROS DE PRODUCTOS*/
+     public void registrarProducto() {
+        try {
+//            query="Call reg_Producto(?,?,?)";
+//            cst=c.conectar().prepareCall(query);
+//            cst.setString(1, getProducto());
+//            cst.setDouble(2, getPrecio());
+//            cst.setString(3,getCategoria());
+//            cst.executeUpdate();
+              query="INSERT INTO tProductos(codigo,tipo,formato,producto,precio,idCategoria)"
+                      + " VALUES(?,?,?,?,?,(SELECT idCategoria FROM tcategoria WHERE nomCategoria=?));";
+              
+            pst=c.conectar().prepareStatement(query);
+            pst.setString(1, getMiniCodigo());
+            pst.setString(2, getTipo());
+            pst.setInt(3, getFormato());
+            pst.setString(4, getProducto());
+            pst.setDouble(5, getPrecio());
+            pst.setString(6, getCategoria());
+            pst.execute();
+            JOptionPane.showMessageDialog(null, "Producto Registrado");
+        } catch (Exception e) {
+            System.out.println("codigo.regProducto.registrarProducto(): " + e);
+        } finally {
+            c.desconectar();
+        }
+    }
+    
+    
 
     public double sumarFilas(JTable tab) {
         double total = 0;
@@ -128,6 +178,14 @@ public class regProforma {
         }
         return total;
     }
+    
+    
+    
+     
+    
+    
+    
+    
 
     /*SETTER Y GETTER*/
     public String getNumProforma() {
@@ -237,5 +295,47 @@ public class regProforma {
      */
     public void setCategoria(String categoria) {
         this.categoria = categoria;
+    }
+
+    /**
+     * @return the precio
+     */
+    public double getPrecio() {
+        return precio;
+    }
+
+    /**
+     * @param precio the precio to set
+     */
+    public void setPrecio(double precio) {
+        this.precio = precio;
+    }
+
+    /**
+     * @return the miniCodigo
+     */
+    public String getMiniCodigo() {
+        return miniCodigo;
+    }
+
+    /**
+     * @param miniCodigo the miniCodigo to set
+     */
+    public void setMiniCodigo(String miniCodigo) {
+        this.miniCodigo = miniCodigo;
+    }
+
+    /**
+     * @return the formato
+     */
+    public int getFormato() {
+        return formato;
+    }
+
+    /**
+     * @param formato the formato to set
+     */
+    public void setFormato(int formato) {
+        this.formato = formato;
     }
 }

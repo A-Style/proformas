@@ -5,6 +5,7 @@
  */
 package codigo;
 
+import codigo.conexion.conexion;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javax.swing.JComboBox;
@@ -40,7 +41,7 @@ public class regCategoria {
         }
     }
 
-    public void mostrarTablaCateogira(JTable tab) {
+    public void mostrarTablaCategoria(JTable tab) {
         try {
             query = "SELECT nomCategoria FROM tcategoria";
             pst = c.conectar().prepareStatement(query);
