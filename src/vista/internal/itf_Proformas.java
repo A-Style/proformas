@@ -4,17 +4,45 @@
  * and open the template in the editor.
  */
 package vista.internal;
+
 import codigo.proforma.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.swing.JOptionPane;
 
 public class itf_Proformas extends javax.swing.JInternalFrame {
 
-    codProf_Registros codRegistros=new codProf_Registros();
-    codProf_Busquedas codBusqueda=new codProf_Busquedas();
+    codProf_Registros codRegistros = new codProf_Registros();
+    codProf_Busquedas codBusqueda = new codProf_Busquedas();
+    tableSise codTableSise = new tableSise();
+
     public itf_Proformas() {
         initComponents();
+        codBusqueda.mostrarTablaCategoria(tablaCategoria);
+        codTableSise.llenarTABProducto(tablaProductos);
         codBusqueda.llenarComboCategoria(cboCategoria);
+        codBusqueda.mostrarTablaItemsProforma(tablaItems);
+
+        llenarCBOCategoria();
+        llenarCBO();
+    }
+
+    private void llenarCBO() {
+        try {
+            codBusqueda.setCategoria(cboCategoria.getSelectedItem().toString());
+            codBusqueda.setCodigo(txtCodigo.getText());
+
+            codBusqueda.llenarComboCategoria(cboCategoria);
+            codBusqueda.llenarComboProductoPorCategoria(cboProducto);
+        } catch (Exception e) {
+            System.out.println("error al llenar CBO " + e);
+        }
+    }
+
+    private void llenarCBOCategoria() {
+        codBusqueda.llenarComboCategoria(cboCategoria);
+        codBusqueda.llenarComboCategoria(cboProductoCategoria);
+
     }
 
     /**
@@ -48,7 +76,7 @@ public class itf_Proformas extends javax.swing.JInternalFrame {
         btnRegistrar_dialogProducto = new javax.swing.JButton();
         btnCancelar_dialogProducto = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        tablaProductos = new javax.swing.JTable();
         jLabel8 = new javax.swing.JLabel();
         spFormato = new javax.swing.JSpinner();
         groupRbtn = new javax.swing.ButtonGroup();
@@ -83,7 +111,7 @@ public class itf_Proformas extends javax.swing.JInternalFrame {
         btnRegistrar2 = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tablaItems = new javax.swing.JTable();
 
         jLabel13.setText("Categoria");
 
@@ -223,18 +251,26 @@ public class itf_Proformas extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tablaProductos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Categoria", "Productos", "Formato", "Codigo", "Tipo", "Precio"
             }
         ));
-        jScrollPane3.setViewportView(jTable2);
+        jScrollPane3.setViewportView(tablaProductos);
+        if (tablaProductos.getColumnModel().getColumnCount() > 0) {
+            tablaProductos.getColumnModel().getColumn(0).setPreferredWidth(150);
+            tablaProductos.getColumnModel().getColumn(1).setPreferredWidth(200);
+            tablaProductos.getColumnModel().getColumn(2).setPreferredWidth(30);
+            tablaProductos.getColumnModel().getColumn(3).setPreferredWidth(50);
+            tablaProductos.getColumnModel().getColumn(4).setPreferredWidth(30);
+            tablaProductos.getColumnModel().getColumn(5).setPreferredWidth(30);
+        }
 
         jLabel8.setText("Formato");
 
@@ -265,10 +301,10 @@ public class itf_Proformas extends javax.swing.JInternalFrame {
                             .addComponent(jLabel14))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, dialogProductoLayout.createSequentialGroup()
-                        .addGap(0, 2, Short.MAX_VALUE)
+                        .addGap(0, 47, Short.MAX_VALUE)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 608, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 653, Short.MAX_VALUE)
                 .addContainerGap())
         );
         dialogProductoLayout.setVerticalGroup(
@@ -364,8 +400,6 @@ public class itf_Proformas extends javax.swing.JInternalFrame {
             }
         });
 
-        cboProducto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         jButton1.setText("...");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -383,6 +417,11 @@ public class itf_Proformas extends javax.swing.JInternalFrame {
         jLabel16.setText("Mini Codigo");
 
         jButton5.setText(".");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -434,7 +473,7 @@ public class itf_Proformas extends javax.swing.JInternalFrame {
                     .addComponent(jLabel4)
                     .addComponent(cboProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -507,7 +546,7 @@ public class itf_Proformas extends javax.swing.JInternalFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rbtnUnidad)
                     .addComponent(rbtnPaquete))
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel5.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -559,7 +598,7 @@ public class itf_Proformas extends javax.swing.JInternalFrame {
 
         jPanel6.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tablaItems.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
                 {null, null},
@@ -570,7 +609,7 @@ public class itf_Proformas extends javax.swing.JInternalFrame {
                 "Title 1", "Title 3"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tablaItems);
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -593,51 +632,53 @@ public class itf_Proformas extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(68, 68, 68))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(68, 68, 68))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(64, 64, 64))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(57, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-       
 
-  
-
-        Date date=dateFechaProforma.getDate();
-        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
-        String fecha=sdf.format(date);
+        Date date = dateFechaProforma.getDate();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String fecha = sdf.format(date);
 
         codRegistros.setFecha(fecha);
         codRegistros.setNumProforma(txtProforma.getText());
         codRegistros.registrarProforma();
-        
-        
+
+        llenarCBO();
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void cboCategoriaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboCategoriaItemStateChanged
@@ -645,27 +686,21 @@ public class itf_Proformas extends javax.swing.JInternalFrame {
             System.out.println(cboCategoria.getSelectedItem().toString());
             System.out.println("Combobox");
         } catch (Exception e) {
-            System.out.println("error "+e);
+            System.out.println("error " + e);
         }
 
         //codProducto.llenarComboProductoCategoria(cboCategoria.getSelectedItem().toString(),cboProducto);
     }//GEN-LAST:event_cboCategoriaItemStateChanged
 
     private void cboCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboCategoriaActionPerformed
-        try {
-            codBusqueda.setCategoria(cboCategoria.getSelectedItem().toString());
-            codBusqueda.setCodigo(txtCodigo.getText());
-            codBusqueda.llenarComboProductoPorCategoria(cboProducto);
-        } catch (Exception e) {
-            System.out.println("error Combobox Categoria al pasar datos a Productos "+e);
-        }
+
 
     }//GEN-LAST:event_cboCategoriaActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         dialogProducto.setVisible(true);
         dialogProducto.setLocationRelativeTo(this);
-        dialogProducto.setSize(700, 290);
+        dialogProducto.setSize(850, 300);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void bCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCategoriaActionPerformed
@@ -675,38 +710,42 @@ public class itf_Proformas extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_bCategoriaActionPerformed
 
     private void rbtnPaqueteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnPaqueteActionPerformed
-        txtImporte.setText("" + Double.parseDouble(txtPrecioUnitario.getText()) * Double.parseDouble(txtCantidad.getText()));
+        try {
+            txtImporte.setText("" + Double.parseDouble(txtPrecioUnitario.getText()) * Double.parseDouble(txtCantidad.getText()));
+        } catch (Exception e) {
+        }
+
     }//GEN-LAST:event_rbtnPaqueteActionPerformed
 
     private void rbtnUnidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnUnidadActionPerformed
-        txtImporte.setText("" + Double.parseDouble(txtPrecioUnitario.getText()) * Double.parseDouble(txtCantidad.getText()));
+
+        try {
+            txtImporte.setText("" + Double.parseDouble(txtPrecioUnitario.getText()) * Double.parseDouble(txtCantidad.getText()));
+        } catch (Exception e) {
+        }
+
     }//GEN-LAST:event_rbtnUnidadActionPerformed
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
 
+        Integer cantidad = Integer.parseInt(txtCantidad.getText());
+        double importe = Double.parseDouble(txtImporte.getText());
         String tipo = "";
-        String producto = "";
-        codRegistros.setCantidad(Integer.parseInt(txtCantidad.getText()));
-        codRegistros.setImporte(Double.parseDouble(txtImporte.getText()));
         if (rbtnPaquete.isSelected()) {
             tipo = "P";
         } else if (rbtnUnidad.isSelected()) {
             tipo = "U";
         }
+        String numProforma = txtProforma.getText();
+        String producto = cboProducto.getSelectedItem().toString();
+
+        codRegistros.setCantidad(cantidad);
+        codRegistros.setImporte(importe);
         codRegistros.setTipo(tipo);
-        codRegistros.setNumProforma(txtProforma.getText());
+        codRegistros.setNumProforma(numProforma);
         codRegistros.setProducto(producto);
         codRegistros.registroItem();
-        
-        
-        
-        
-       
-
-        
-
-        
-
+        codBusqueda.mostrarTablaItemsProforma(tablaItems);
 //        txtCantidad.setText("");
 //        txtPrecioUnitario.setText("");
 //        txtImporte.setText("");
@@ -732,13 +771,10 @@ public class itf_Proformas extends javax.swing.JInternalFrame {
 
     private void btnRegistrarCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarCategoriaActionPerformed
         codRegistros.setCategoria(txtCategoria.getText().toString());
-        codRegistros.nuevoCategoria();        
+        codRegistros.nuevoCategoria();
         codBusqueda.mostrarTablaCategoria(tablaCategoria);
 
-        
-        
-        codBusqueda.llenarComboCategoria(cboProductoCategoria);
-        codBusqueda.llenarComboCategoria(cboCategoria);
+        llenarCBOCategoria();
         txtCategoria.setText("");
     }//GEN-LAST:event_btnRegistrarCategoriaActionPerformed
 
@@ -750,16 +786,15 @@ public class itf_Proformas extends javax.swing.JInternalFrame {
     private void btnRegistrar_dialogProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrar_dialogProductoActionPerformed
 
         codRegistros.setMiniCodigo(txtRegCodigo.getText().toString());
-        codRegistros.setTipo(cboProductoCategoria.getSelectedItem().toString().substring(0,1));//Extrae el primer char del jcombobox       
+        codRegistros.setTipo(cboRegTipo.getSelectedItem().toString().substring(0, 1));//Extrae el primer char del jcombobox       
         codRegistros.setFormato(Integer.parseInt(spFormato.getValue().toString()));
         codRegistros.setProducto(txtRegProducto.getText());
-        codRegistros.setPrecio(Double.parseDouble(txtRegPrecio.getText()));        
-        codRegistros.setCategoria(cboProductoCategoria.getSelectedItem().toString());                   
+        codRegistros.setPrecio(Double.parseDouble(txtRegPrecio.getText()));
+        codRegistros.setCategoria(cboProductoCategoria.getSelectedItem().toString());
         codRegistros.registrarProducto();
-        
-        
-        codBusqueda.llenarComboProductoPorCategoria(cboProducto);
 
+        codBusqueda.llenarComboProductoPorCategoria(cboProducto);
+        codBusqueda.mostrarTablaProductos(tablaProductos);
         txtRegPrecio.setText("");
         txtRegProducto.setText("");
     }//GEN-LAST:event_btnRegistrar_dialogProductoActionPerformed
@@ -769,6 +804,15 @@ public class itf_Proformas extends javax.swing.JInternalFrame {
         txtRegPrecio.setText("");
         txtRegProducto.setText("");
     }//GEN-LAST:event_btnCancelar_dialogProductoActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+
+        codBusqueda.setCategoria(cboCategoria.getSelectedItem().toString());
+        codBusqueda.setCodigo(txtCodigo.getText());
+        codBusqueda.llenarComboProductoPorCategoria(cboProducto);
+
+
+    }//GEN-LAST:event_jButton5ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -815,12 +859,12 @@ public class itf_Proformas extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
     private javax.swing.JRadioButton rbtnPaquete;
     private javax.swing.JRadioButton rbtnUnidad;
     private javax.swing.JSpinner spFormato;
     private javax.swing.JTable tablaCategoria;
+    private javax.swing.JTable tablaItems;
+    private javax.swing.JTable tablaProductos;
     private javax.swing.JTextField txtCantidad;
     private javax.swing.JTextField txtCategoria;
     private javax.swing.JTextField txtCodigo;

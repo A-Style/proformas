@@ -5,17 +5,31 @@
  */
 package vista.internal;
 
+import codigo.proforma.codProf_Busquedas;
+import codigo.busqueda.codBus_Busqueda;
+
 /**
  *
  * @author Mipc
  */
 public class itf_Busqueda extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form itf_Busqueda
-     */
+    codProf_Busquedas codBusqueda = new codProf_Busquedas();
+    codBus_Busqueda cBusqueda = new codBus_Busqueda();
+
     public itf_Busqueda() {
         initComponents();
+        try {
+            codBusqueda.llenarComboCategoria(cboCategoria);
+
+            cBusqueda.setNroProforma(txtProforma.getText());
+            cBusqueda.setCodigo(txtCodigo.getText());
+            cBusqueda.setProducto(txtProducto.getText());
+            cBusqueda.setCategoria(cboCategoria.getSelectedItem().toString());
+            cBusqueda.mostrarTablaBusqueda(tablaItems);
+        } catch (Exception e) {
+        }
+
     }
 
     /**
@@ -72,15 +86,35 @@ public class itf_Busqueda extends javax.swing.JInternalFrame {
 
         chekProforma.setSelected(true);
         chekProforma.setText("NroProforma");
+        chekProforma.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chekProformaActionPerformed(evt);
+            }
+        });
 
         chekCodigo.setSelected(true);
         chekCodigo.setText("Mini Codigo");
+        chekCodigo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chekCodigoActionPerformed(evt);
+            }
+        });
 
         chekProducto.setSelected(true);
         chekProducto.setText("Producto");
+        chekProducto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chekProductoActionPerformed(evt);
+            }
+        });
 
         chekCategoria.setSelected(true);
         chekCategoria.setText("Categoria");
+        chekCategoria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chekCategoriaActionPerformed(evt);
+            }
+        });
 
         jLabel9.setText("TOTAL Paquete");
 
@@ -215,6 +249,11 @@ public class itf_Busqueda extends javax.swing.JInternalFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
 
+        cBusqueda.setNroProforma(txtProforma.getText());
+        cBusqueda.setCodigo(txtCodigo.getText());
+        cBusqueda.setProducto(txtProducto.getText());
+        cBusqueda.setCategoria(cboCategoria.getSelectedItem().toString());
+        cBusqueda.mostrarTablaBusqueda(tablaItems);
 //        codProforma.setNumProforma(txtProforma.getText());
 //        codProforma.setProducto(txtProducto.getText());
 //        codProforma.setCategoria(cboCategoria.getSelectedItem().toString());
@@ -222,6 +261,43 @@ public class itf_Busqueda extends javax.swing.JInternalFrame {
 //
 //        txtTotal.setText("" + codProforma.sumarFilas(tablaItems));
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void chekProformaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chekProformaActionPerformed
+        txtProforma.setText("");
+        if (chekProforma.isSelected()) {
+            txtProforma.setEnabled(true);
+        } else {
+            txtProforma.setEnabled(false);
+        }
+
+    }//GEN-LAST:event_chekProformaActionPerformed
+
+    private void chekCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chekCodigoActionPerformed
+        txtCodigo.setText("");
+        if (chekCodigo.isSelected()) {
+            txtCodigo.setEnabled(true);
+        } else {
+            txtCodigo.setEnabled(false);
+        }
+    }//GEN-LAST:event_chekCodigoActionPerformed
+
+    private void chekProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chekProductoActionPerformed
+        txtProducto.setText("");
+        if (chekProducto.isSelected()) {
+            txtProducto.setEnabled(true);
+        } else {
+            txtProducto.setEnabled(false);
+        }
+    }//GEN-LAST:event_chekProductoActionPerformed
+
+    private void chekCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chekCategoriaActionPerformed
+
+        if (chekCategoria.isSelected()) {
+            cboCategoria.setEnabled(true);
+        } else {
+            cboCategoria.setEnabled(false);
+        }
+    }//GEN-LAST:event_chekCategoriaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

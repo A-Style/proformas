@@ -141,7 +141,7 @@ public class codProf_Registros {
 //            cst.setDouble(2, getPrecio());
 //            cst.setString(3,getCategoria());
 //            cst.executeUpdate();
-              query="INSERT INTO tProductos(codigo,tipo,formato,producto,precio,idCategoria)"
+              query="INSERT INTO tproductos(codigo,tipo,formato,producto,precio,idCategoria)"
                       + " VALUES(?,?,?,?,?,(SELECT idCategoria FROM tcategoria WHERE nomCategoria=?));";
               
             pst=c.conectar().prepareStatement(query);
