@@ -46,6 +46,7 @@ public class Menu extends javax.swing.JFrame {
         panReportes = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(1100, 600));
 
         jTabbedPane1.setTabPlacement(javax.swing.JTabbedPane.LEFT);
 
@@ -57,7 +58,7 @@ public class Menu extends javax.swing.JFrame {
         );
         panProformaLayout.setVerticalGroup(
             panProformaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 472, Short.MAX_VALUE)
+            .addGap(0, 552, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("PROFORMAS", panProforma);
@@ -70,7 +71,7 @@ public class Menu extends javax.swing.JFrame {
         );
         panBusquedaLayout.setVerticalGroup(
             panBusquedaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 472, Short.MAX_VALUE)
+            .addGap(0, 552, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("BUSQUEDA", panBusqueda);
@@ -83,7 +84,7 @@ public class Menu extends javax.swing.JFrame {
         );
         panReportesLayout.setVerticalGroup(
             panReportesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 472, Short.MAX_VALUE)
+            .addGap(0, 552, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("REPORTES", panReportes);
@@ -101,7 +102,7 @@ public class Menu extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 477, Short.MAX_VALUE)
+                .addComponent(jTabbedPane1)
                 .addContainerGap())
         );
 

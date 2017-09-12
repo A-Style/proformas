@@ -22,6 +22,17 @@ public class tableSise {
         tablaProductos.getColumn("Tipo").setMinWidth(30);
        tablaProductos.getColumn("Precio").setMinWidth(30);
 
+    }
+    
+    public void llenarTABItem(JTable tablaItem) {
+       // codBusqueda.mostrarTablaItemsProforma(tablaItem);
+        tablaItem.getColumn("Cantidad").setMinWidth(30);
+        tablaItem.getColumn("Categoria").setMinWidth(100);
+        tablaItem.getColumn("Codigo").setMinWidth(100);
+        tablaItem.getColumn("Producto").setMinWidth(200);
+        tablaItem.getColumn("Importe").setMinWidth(30);      
 
     }
+    
+    
 }

@@ -22,6 +22,7 @@ public class codProf_Busquedas {
     private String categoria;
     private String producto;
     private String codigo;
+    private String nroProforma;
 
     public void llenarComboCategoria(JComboBox cbo) {
         try {
@@ -131,27 +132,34 @@ public class codProf_Busquedas {
 
     public void mostrarTablaItemsProforma(JTable tab) {
         try {
-            query = "SELECT cat.nomCategoria,pro.codigo,pro.producto,detpro.cantidad,detpro.importe\n"
-                    + "FROM tcategoria cat\n"
-                    + "INNER JOIN tproductos pro ON cat.idCategoria=pro.idCategoria\n"
-                    + "INNER JOIN tdetaproforma detpro ON pro.idProducto=detpro.idProducto";
+            //query = "    SELECT CASE pro.tipo WHEN 'U' THEN CONCAT('0',detpro.cantidad) WHEN 'P' THEN detpro.cantidad END cantidad,\n"
+                  query=  "SELECT detpro.cantidad,\n"
+                    + "cat.nomCategoria,pro.codigo,pro.producto,pro.precio,detpro.importe\n"
+                    + "                    FROM tcategoria cat\n"
+                    + "                    INNER JOIN tproductos pro ON cat.idCategoria=pro.idCategoria\n"
+                    + "                    INNER JOIN tdetaproforma detpro ON pro.idProducto=detpro.idProducto\n"
+                    + "                    WHERE detpro.idProforma=(SELECT idProforma FROM tproforma WHERE nroProforma LIKE ?)";
             pst = c.conectar().prepareStatement(query);
+            pst.setString(1, getNroProforma());
             rs = pst.executeQuery();
             DefaultTableModel model = new DefaultTableModel();
+            model.addColumn("Cantidad");
             model.addColumn("Categoria");
-            model.addColumn("Producto");
-            model.addColumn("Formato");
             model.addColumn("Codigo");
-            model.addColumn("Tipo");
-            model.addColumn("Precio");
-            Object[] fila = new Object[5];
+            model.addColumn("Producto");            
+            model.addColumn("Precio U.");
+            model.addColumn("Importe");
+            
+            Object[] fila = new Object[6];
             while (rs.next()) {
 
                 fila[0] = rs.getString(1);
                 fila[1] = rs.getString(2);
                 fila[2] = rs.getString(3);
-                fila[3] = rs.getInt(4);
+                fila[3] = rs.getString(4);
                 fila[4] = rs.getDouble(5);
+                fila[5] = rs.getDouble(6);
+                
                 
 
                 model.addRow(fila);
@@ -165,6 +173,33 @@ public class codProf_Busquedas {
 
         }
 
+    }
+
+    public void mostrarTablaItems(JTable tab) {
+        try {
+            query = "SELECT det.cantidad,pro.producto,pro.precio,det.importe FROM tdetaproforma det \n"
+                    + "INNER JOIN tproductos pro ON det.idProducto=pro.idProducto"
+                    + "WHERE det.idProforma=(SELECT idProforma FROM tproforma WHERE nroProforma LIKE ?)";
+            pst = c.conectar().prepareStatement(query);
+            pst.setString(1, getNroProforma());
+            rs = pst.executeQuery();
+            DefaultTableModel t = new DefaultTableModel();
+            t.addColumn("Cant");
+            t.addColumn("Producto");
+            t.addColumn("P.Unitario");
+            t.addColumn("Importe");
+            Object[] obj = new Object[4];
+            while (rs.next()) {
+                obj[0] = rs.getInt(1);
+                obj[1] = rs.getString(2);
+                obj[2] = rs.getDouble(3);
+                obj[3] = rs.getDouble(4);
+                t.addRow(obj);
+            }
+
+            tab.setModel(t);
+        } catch (Exception e) {
+        }
     }
 
     /**
@@ -207,6 +242,20 @@ public class codProf_Busquedas {
      */
     public void setCodigo(String codigo) {
         this.codigo = codigo;
+    }
+
+    /**
+     * @return the nroProforma
+     */
+    public String getNroProforma() {
+        return nroProforma;
+    }
+
+    /**
+     * @param nroProforma the nroProforma to set
+     */
+    public void setNroProforma(String nroProforma) {
+        this.nroProforma = nroProforma;
     }
 
 }

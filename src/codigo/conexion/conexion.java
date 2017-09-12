@@ -17,11 +17,15 @@ public class conexion {
     Connection c;
 
     public conexion() {
-        //this.host = "localhost:3306";
-        this.host = "192.168.1.206";
-        this.database = "dbproformas";
+//        this.host = "localhost:3306";
+//        this.user = "root";
+//        this.password = "";
+        
+        this.host = "192.168.1.206";        
         this.user = "proformas";
         this.password = "proformas";
+        
+        this.database = "dbproformas";
         this.link = "jdbc:mysql://" + this.host + "/" + this.database
                 + "?verifyServerCertificate=false"
                 + "&useSSL=false"

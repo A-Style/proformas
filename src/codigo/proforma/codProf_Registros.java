@@ -5,7 +5,9 @@ import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import javax.swing.DefaultListModel;
 import javax.swing.JComboBox;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -23,11 +25,11 @@ public class codProf_Registros {
     private String query = "";
     conexion c = new conexion();
 
-    
+
 //GENERACION DE PROFORMA
     public void registrarProforma() {
         try {
-            query = "INSERT INTO tProforma(nroProforma,fecha) VALUES(?,?);";
+            query = "INSERT INTO tproforma(nroProforma,fecha) VALUES(?,?);";
             pst = c.conectar().prepareStatement(query);
             pst.setString(1, getNumProforma());
             pst.setString(2, getFecha());
@@ -44,7 +46,7 @@ public class codProf_Registros {
     public void registroItem() {
         try {
             query = "INSERT INTO tdetaproforma(cantidad,importe,tipo,idProforma,idProducto) "
-                    + "VALUES(?,?,?,(SELECT idProforma FROM tproforma WHERE nroProforma=?),(SELECT idProducto FROM tProductos WHERE producto=?));";
+                    + "VALUES(?,?,?,(SELECT idProforma FROM tproforma WHERE nroProforma=?),(SELECT idProducto FROM tproductos WHERE producto=?));";
             pst = c.conectar().prepareStatement(query);
             pst.setInt(1, getCantidad());
             pst.setDouble(2, getImporte());
@@ -142,7 +144,7 @@ public class codProf_Registros {
 //            cst.setString(3,getCategoria());
 //            cst.executeUpdate();
               query="INSERT INTO tproductos(codigo,tipo,formato,producto,precio,idCategoria)"
-                      + " VALUES(?,?,?,?,?,(SELECT idCategoria FROM tcategoria WHERE nomCategoria=?));";
+                      + " VALUES(UPPER(?),?,?,?,?,(SELECT idCategoria FROM tcategoria WHERE nomCategoria=?));";
               
             pst=c.conectar().prepareStatement(query);
             pst.setString(1, getMiniCodigo());
@@ -180,7 +182,21 @@ public class codProf_Registros {
     }
     
     
-    
+    public void listarProforma(JList lista){
+        try {
+            query="SELECT DISTINCT(CONCAT(DATE_FORMAT(fecha,'%d/%m/%Y'),' - ',nroProforma))lista FROM tproforma";
+            pst=c.conectar().prepareStatement(query);
+            rs=pst.executeQuery();
+            DefaultListModel l=new DefaultListModel();
+            
+            while (rs.next()) {                
+                l.addElement(rs.getString(1));
+            }
+            lista.setModel(l);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
      
     
     
