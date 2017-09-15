@@ -6,6 +6,7 @@
 package vista.internal;
 
 import codigo.proforma.*;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -17,7 +18,7 @@ public class itf_Proformas extends javax.swing.JInternalFrame {
 
     codProf_Registros codRegistros = new codProf_Registros();
     codProf_Busquedas codBusqueda = new codProf_Busquedas();
-    codProf_Actualizar codActualizar=new codProf_Actualizar();
+    codProf_Actualizar codActualizar = new codProf_Actualizar();
     tableSise codTableSise = new tableSise();
 
     public itf_Proformas() {
@@ -31,7 +32,7 @@ public class itf_Proformas extends javax.swing.JInternalFrame {
         llenarCBOCategoria();
         llenarCBO();
         codTableSise.llenarTABItem(tablaItems);
-        
+
     }
 
     private void llenarCBO() {
@@ -121,6 +122,9 @@ public class itf_Proformas extends javax.swing.JInternalFrame {
         tablaItems = new javax.swing.JTable();
         jScrollPane4 = new javax.swing.JScrollPane();
         listProformas = new javax.swing.JList<>();
+        jLabel11 = new javax.swing.JLabel();
+        txtTotalImporte = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
 
         jLabel13.setText("Categoria");
 
@@ -346,6 +350,12 @@ public class itf_Proformas extends javax.swing.JInternalFrame {
 
         jLabel1.setText("Proforma");
 
+        txtProforma.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtProformaKeyTyped(evt);
+            }
+        });
+
         jLabel2.setText("Fecha");
 
         jButton2.setText("GENERAR  PROFORMA");
@@ -379,13 +389,13 @@ public class itf_Proformas extends javax.swing.JInternalFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(dateFechaProforma, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(dateFechaProforma, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(txtProforma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtProforma, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -425,7 +435,7 @@ public class itf_Proformas extends javax.swing.JInternalFrame {
 
         jLabel16.setText("Mini Codigo");
 
-        jButton5.setText(".");
+        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_Search_20px.png"))); // NOI18N
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton5ActionPerformed(evt);
@@ -439,29 +449,23 @@ public class itf_Proformas extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel9))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(cboCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(bCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 10, Short.MAX_VALUE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(cboProducto, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(9, 9, 9))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel16)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(9, 9, 9))))
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 4, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtCodigo)
+                    .addComponent(cboProducto, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cboCategoria, 0, 260, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(bCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -469,24 +473,33 @@ public class itf_Proformas extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
-                    .addComponent(cboCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(bCategoria))
+                    .addComponent(cboCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(9, 9, 9)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel16)
-                    .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(cboProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(cboProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(32, Short.MAX_VALUE))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel3.setText("Cantidad");
+
+        txtCantidad.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtCantidadKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCantidadKeyTyped(evt);
+            }
+        });
 
         jLabel6.setText("Importe");
 
@@ -510,6 +523,34 @@ public class itf_Proformas extends javax.swing.JInternalFrame {
         });
 
         jLabel5.setText("Pre. Unitario");
+
+        txtPrecioUnitario.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                txtPrecioUnitarioAncestorAdded(evt);
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
+        txtPrecioUnitario.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtPrecioUnitarioFocusLost(evt);
+            }
+        });
+        txtPrecioUnitario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPrecioUnitarioActionPerformed(evt);
+            }
+        });
+        txtPrecioUnitario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtPrecioUnitarioKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtPrecioUnitarioKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -633,6 +674,10 @@ public class itf_Proformas extends javax.swing.JInternalFrame {
         });
         jScrollPane4.setViewportView(listProformas);
 
+        jLabel11.setText("TOTAL");
+
+        jLabel12.setText("s\\.");
+
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
@@ -641,7 +686,15 @@ public class itf_Proformas extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabel11)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel12)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtTotalImporte, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
@@ -649,10 +702,14 @@ public class itf_Proformas extends javax.swing.JInternalFrame {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane4)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel11)
+                            .addComponent(txtTotalImporte, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel12))))
                 .addContainerGap())
         );
 
@@ -660,19 +717,18 @@ public class itf_Proformas extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(14, 14, 14)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(87, 87, 87))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -682,11 +738,11 @@ public class itf_Proformas extends javax.swing.JInternalFrame {
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(16, 16, 16))
         );
 
         pack();
@@ -694,16 +750,19 @@ public class itf_Proformas extends javax.swing.JInternalFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
 
-        Date date = dateFechaProforma.getDate();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        String fecha = sdf.format(date);
+        if (txtProforma.getText().length() != 6) {
+            JOptionPane.showMessageDialog(null, "Verifique su Proforma");
+        } else {
+            Date date = dateFechaProforma.getDate();
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            String fecha = sdf.format(date);
 
-        codRegistros.setFecha(fecha);
-        codRegistros.setNumProforma(txtProforma.getText());
-        codRegistros.registrarProforma();
-        codRegistros.listarProforma(listProformas);
-        llenarCBO();
-
+            codRegistros.setFecha(fecha);
+            codRegistros.setNumProforma(txtProforma.getText());
+            codRegistros.registrarProforma();
+            codRegistros.listarProforma(listProformas);
+            llenarCBO();
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void cboCategoriaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboCategoriaItemStateChanged
@@ -743,7 +802,6 @@ public class itf_Proformas extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_rbtnPaqueteActionPerformed
 
     private void rbtnUnidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnUnidadActionPerformed
-
         try {
             txtImporte.setText("" + Double.parseDouble(txtPrecioUnitario.getText()) * Double.parseDouble(txtCantidad.getText()));
         } catch (Exception e) {
@@ -752,8 +810,12 @@ public class itf_Proformas extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_rbtnUnidadActionPerformed
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
+registrar();
+        
+    }//GEN-LAST:event_btnRegistrarActionPerformed
 
-        Integer cantidad = Integer.parseInt(txtCantidad.getText());
+    private void registrar(){
+    Integer cantidad = Integer.parseInt(txtCantidad.getText());
         double importe = Double.parseDouble(txtImporte.getText());
         String tipo = "";
         if (rbtnPaquete.isSelected()) {
@@ -772,7 +834,7 @@ public class itf_Proformas extends javax.swing.JInternalFrame {
         codRegistros.registroItem();
         codBusqueda.mostrarTablaItemsProforma(tablaItems);
         codTableSise.llenarTABItem(tablaItems);
-        
+
 //        txtCantidad.setText("");
 //        txtPrecioUnitario.setText("");
 //        txtImporte.setText("");
@@ -782,8 +844,8 @@ public class itf_Proformas extends javax.swing.JInternalFrame {
 //        cboProducto.setEnabled(true);
         //chek.setSelected(false);
         //checkPaquete.setSelected(false);
-    }//GEN-LAST:event_btnRegistrarActionPerformed
-
+    }
+    
     private void btnRegistrar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrar1ActionPerformed
 
 //        codActualizar.setNroProforma(txtProforma.getText());
@@ -791,8 +853,7 @@ public class itf_Proformas extends javax.swing.JInternalFrame {
 //        codActualizar.setImporte(txtImporte.getText());
 //        codActualizar.set
 //        codActualizar.actualizarItem(tablaItems);
-        
-        
+
     }//GEN-LAST:event_btnRegistrar1ActionPerformed
 
     private void btnRegistrar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrar2ActionPerformed
@@ -861,15 +922,21 @@ public class itf_Proformas extends javax.swing.JInternalFrame {
         txtProforma.setText(listProformas.getSelectedValue().substring(13, 19));
         codBusqueda.setNroProforma(listProformas.getSelectedValue().substring(13, 19));
         codBusqueda.mostrarTablaItemsProforma(tablaItems);
-        
+
         tablaItems.getColumn("Cantidad").setMinWidth(20);
         tablaItems.getColumn("Categoria").setMinWidth(100);
         tablaItems.getColumn("Codigo").setMinWidth(100);
         tablaItems.getColumn("Producto").setMinWidth(200);
-        tablaItems.getColumn("Precio U.").setMinWidth(30);        
-        tablaItems.getColumn("Importe").setMinWidth(30);  
+        tablaItems.getColumn("Precio U.").setMinWidth(30);
+        tablaItems.getColumn("Importe").setMinWidth(30);
+
+
+        double total=0;
+        for (int i = 0; i < tablaItems.getRowCount(); i++) {
+            total=total+Double.parseDouble(tablaItems.getValueAt(i, 5).toString());
+        }
+        txtTotalImporte.setText(""+total);
         
-       
     }//GEN-LAST:event_listProformasMouseClicked
 
     private void tablaItemsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaItemsMouseClicked
@@ -877,19 +944,64 @@ public class itf_Proformas extends javax.swing.JInternalFrame {
         cboProducto.removeAllItems();
         cboCategoria.setSelectedItem(tablaItems.getValueAt(tablaItems.getSelectedRow(), 1));
         txtCodigo.setText(tablaItems.getValueAt(tablaItems.getSelectedRow(), 2).toString());
-     
+
         codBusqueda.setCategoria(cboCategoria.getSelectedItem().toString());
         codBusqueda.setCodigo(txtCodigo.getText().toUpperCase());
         codBusqueda.llenarComboProductoPorCategoria(cboProducto);
-        
+
         cboProducto.setSelectedItem(tablaItems.getValueAt(tablaItems.getSelectedRow(), 3));
-        
+
         txtCantidad.setText(tablaItems.getValueAt(tablaItems.getSelectedRow(), 0).toString());
         txtPrecioUnitario.setText(tablaItems.getValueAt(tablaItems.getSelectedRow(), 4).toString());
         txtImporte.setText(tablaItems.getValueAt(tablaItems.getSelectedRow(), 5).toString());
-        
+
 
     }//GEN-LAST:event_tablaItemsMouseClicked
+
+    private void txtCantidadKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantidadKeyPressed
+
+    }//GEN-LAST:event_txtCantidadKeyPressed
+
+    private void txtCantidadKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantidadKeyTyped
+
+    }//GEN-LAST:event_txtCantidadKeyTyped
+
+    private void txtPrecioUnitarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrecioUnitarioKeyTyped
+
+    }//GEN-LAST:event_txtPrecioUnitarioKeyTyped
+
+    private void txtPrecioUnitarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrecioUnitarioKeyPressed
+
+    }//GEN-LAST:event_txtPrecioUnitarioKeyPressed
+
+    private void txtProformaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtProformaKeyTyped
+
+
+    }//GEN-LAST:event_txtProformaKeyTyped
+
+    private void txtPrecioUnitarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPrecioUnitarioActionPerformed
+        try {
+
+            double importe = Double.parseDouble(txtPrecioUnitario.getText()) * Double.parseDouble(txtCantidad.getText());
+            DecimalFormat df = new DecimalFormat("#.00");
+            txtImporte.setText("" + df.format(importe));
+        } catch (Exception e) {
+        }
+    }//GEN-LAST:event_txtPrecioUnitarioActionPerformed
+
+    private void txtPrecioUnitarioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPrecioUnitarioFocusLost
+        try {
+            txtImporte.setText("" + Double.parseDouble(txtPrecioUnitario.getText()) * Double.parseDouble(txtCantidad.getText()));
+        } catch (Exception e) {
+        }
+    }//GEN-LAST:event_txtPrecioUnitarioFocusLost
+
+    private void txtPrecioUnitarioAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_txtPrecioUnitarioAncestorAdded
+        try {
+            txtImporte.setText("" + Double.parseDouble(txtPrecioUnitario.getText()) * Double.parseDouble(txtCantidad.getText()));
+        } catch (Exception e) {
+        }
+    }//GEN-LAST:event_txtPrecioUnitarioAncestorAdded
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -914,6 +1026,8 @@ public class itf_Proformas extends javax.swing.JInternalFrame {
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
@@ -953,5 +1067,6 @@ public class itf_Proformas extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtRegCodigo;
     private javax.swing.JTextField txtRegPrecio;
     private javax.swing.JTextField txtRegProducto;
+    private javax.swing.JTextField txtTotalImporte;
     // End of variables declaration//GEN-END:variables
 }

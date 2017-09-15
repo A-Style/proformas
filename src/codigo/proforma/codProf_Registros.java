@@ -184,7 +184,7 @@ public class codProf_Registros {
     
     public void listarProforma(JList lista){
         try {
-            query="SELECT DISTINCT(CONCAT(DATE_FORMAT(fecha,'%d/%m/%Y'),' - ',nroProforma))lista FROM tproforma";
+            query="SELECT DISTINCT(CONCAT(DATE_FORMAT(fecha,'%d/%m/%Y'),' - ',nroProforma))lista FROM tproforma ORDER BY lista desc";
             pst=c.conectar().prepareStatement(query);
             rs=pst.executeQuery();
             DefaultListModel l=new DefaultListModel();

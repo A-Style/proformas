@@ -9,6 +9,7 @@ public class Menu extends javax.swing.JFrame {
 
     itf_Busqueda ifrmBusqueda=new itf_Busqueda();
     itf_Proformas ifrmProforma=new itf_Proformas();
+    itf_Charts ifrmChart=new itf_Charts();
     public Menu() {
         initComponents();
         setLocationRelativeTo(this);
@@ -19,9 +20,13 @@ public class Menu extends javax.swing.JFrame {
         panBusqueda.add(ifrmBusqueda);
         ifrmBusqueda.setVisible(true);
         
+        panChart.add(ifrmChart);
+        ifrmChart.setVisible(true);
+        
          try {
              ifrmProforma.setMaximum(true);
             ifrmBusqueda.setMaximum(true);
+             ifrmChart.setMaximum(true);
         } catch (Exception e) {
         }
         
@@ -43,7 +48,7 @@ public class Menu extends javax.swing.JFrame {
         jTabbedPane1 = new javax.swing.JTabbedPane();
         panProforma = new javax.swing.JPanel();
         panBusqueda = new javax.swing.JPanel();
-        panReportes = new javax.swing.JPanel();
+        panChart = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1100, 600));
@@ -76,18 +81,18 @@ public class Menu extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("BUSQUEDA", panBusqueda);
 
-        javax.swing.GroupLayout panReportesLayout = new javax.swing.GroupLayout(panReportes);
-        panReportes.setLayout(panReportesLayout);
-        panReportesLayout.setHorizontalGroup(
-            panReportesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout panChartLayout = new javax.swing.GroupLayout(panChart);
+        panChart.setLayout(panChartLayout);
+        panChartLayout.setHorizontalGroup(
+            panChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 990, Short.MAX_VALUE)
         );
-        panReportesLayout.setVerticalGroup(
-            panReportesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        panChartLayout.setVerticalGroup(
+            panChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 552, Short.MAX_VALUE)
         );
 
-        jTabbedPane1.addTab("REPORTES", panReportes);
+        jTabbedPane1.addTab("CHARTS", panChart);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -147,7 +152,7 @@ public class Menu extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JPanel panBusqueda;
+    private javax.swing.JPanel panChart;
     private javax.swing.JPanel panProforma;
-    private javax.swing.JPanel panReportes;
     // End of variables declaration//GEN-END:variables
 }

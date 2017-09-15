@@ -26,7 +26,7 @@ public class codProf_Busquedas {
 
     public void llenarComboCategoria(JComboBox cbo) {
         try {
-            query = "SELECT DISTINCT(nomCategoria) FROM tcategoria";
+            query = "SELECT DISTINCT(nomCategoria) FROM tcategoria ORDER BY nomCategoria";
             pst = c.conectar().prepareStatement(query);
             rs = pst.executeQuery();
             cbo.removeAllItems();
@@ -132,8 +132,8 @@ public class codProf_Busquedas {
 
     public void mostrarTablaItemsProforma(JTable tab) {
         try {
-            //query = "    SELECT CASE pro.tipo WHEN 'U' THEN CONCAT('0',detpro.cantidad) WHEN 'P' THEN detpro.cantidad END cantidad,\n"
-                  query=  "SELECT detpro.cantidad,\n"
+            query = "    SELECT CASE pro.tipo WHEN 'U' THEN CONCAT('0',detpro.cantidad) WHEN 'P' THEN detpro.cantidad END cantidad,\n"
+                  //query=  "SELECT detpro.cantidad,\n"
                     + "cat.nomCategoria,pro.codigo,pro.producto,pro.precio,detpro.importe\n"
                     + "                    FROM tcategoria cat\n"
                     + "                    INNER JOIN tproductos pro ON cat.idCategoria=pro.idCategoria\n"
