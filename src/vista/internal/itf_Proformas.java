@@ -74,13 +74,13 @@ public class itf_Proformas extends javax.swing.JInternalFrame {
         txtRegProducto = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
         txtRegPrecio = new javax.swing.JTextField();
-        cboProductoCategoria = new javax.swing.JComboBox<>();
+        cboProductoCategoria = new javax.swing.JComboBox<String>();
         jLabel15 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         txtRegCodigo = new javax.swing.JTextField();
         jLabel19 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        cboRegTipo = new javax.swing.JComboBox<>();
+        cboRegTipo = new javax.swing.JComboBox<String>();
         btnRegistrar_dialogProducto = new javax.swing.JButton();
         btnCancelar_dialogProducto = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -97,8 +97,8 @@ public class itf_Proformas extends javax.swing.JInternalFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        cboCategoria = new javax.swing.JComboBox<>();
-        cboProducto = new javax.swing.JComboBox<>();
+        cboCategoria = new javax.swing.JComboBox<String>();
+        cboProducto = new javax.swing.JComboBox<String>();
         jButton1 = new javax.swing.JButton();
         bCategoria = new javax.swing.JButton();
         jLabel16 = new javax.swing.JLabel();
@@ -121,7 +121,7 @@ public class itf_Proformas extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaItems = new javax.swing.JTable();
         jScrollPane4 = new javax.swing.JScrollPane();
-        listProformas = new javax.swing.JList<>();
+        listProformas = new javax.swing.JList<String>();
         jLabel11 = new javax.swing.JLabel();
         txtTotalImporte = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
@@ -199,7 +199,7 @@ public class itf_Proformas extends javax.swing.JInternalFrame {
 
         jLabel14.setText("Precio");
 
-        cboProductoCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cboProductoCategoria.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jLabel15.setText("Categoria");
 
@@ -209,7 +209,7 @@ public class itf_Proformas extends javax.swing.JInternalFrame {
 
         jLabel7.setText("Tipo");
 
-        cboRegTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Vidrio", "Plastico", "Tetrapack" }));
+        cboRegTipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Vidrio", "Plastico", "Tetrapack" }));
 
         btnRegistrar_dialogProducto.setText("REGISTRAR");
         btnRegistrar_dialogProducto.addActionListener(new java.awt.event.ActionListener() {
@@ -407,7 +407,7 @@ public class itf_Proformas extends javax.swing.JInternalFrame {
 
         jLabel9.setText("Categoria");
 
-        cboCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cboCategoria.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cboCategoria.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cboCategoriaItemStateChanged(evt);
@@ -419,14 +419,14 @@ public class itf_Proformas extends javax.swing.JInternalFrame {
             }
         });
 
-        jButton1.setText("...");
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_Add_20px.png"))); // NOI18N
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
 
-        bCategoria.setText("...");
+        bCategoria.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_Add_20px.png"))); // NOI18N
         bCategoria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bCategoriaActionPerformed(evt);
@@ -476,10 +476,11 @@ public class itf_Proformas extends javax.swing.JInternalFrame {
                     .addComponent(cboCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(bCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(9, 9, 9)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel16)
-                    .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel16)
+                        .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
@@ -662,10 +663,10 @@ public class itf_Proformas extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(tablaItems);
 
-        listProformas.setModel(new javax.swing.AbstractListModel<String>() {
+        listProformas.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
+            public Object getElementAt(int i) { return strings[i]; }
         });
         listProformas.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
