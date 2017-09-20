@@ -132,24 +132,29 @@ public class codProf_Busquedas {
 
     public void mostrarTablaItemsProforma(JTable tab) {
         try {
-            query = "    SELECT CASE pro.tipo WHEN 'U' THEN CONCAT('0',detpro.cantidad) WHEN 'P' THEN detpro.cantidad END cantidad,\n"
-                  //query=  "SELECT detpro.cantidad,\n"
-                    + "cat.nomCategoria,pro.codigo,pro.producto,pro.precio,detpro.importe\n"
-                    + "                    FROM tcategoria cat\n"
-                    + "                    INNER JOIN tproductos pro ON cat.idCategoria=pro.idCategoria\n"
-                    + "                    INNER JOIN tdetaproforma detpro ON pro.idProducto=detpro.idProducto\n"
-                    + "                    WHERE detpro.idProforma=(SELECT idProforma FROM tproforma WHERE nroProforma LIKE ?)";
-            pst = c.conectar().prepareStatement(query);
-            pst.setString(1, getNroProforma());
-            rs = pst.executeQuery();
+//            query = "    SELECT CASE detpro.tipo WHEN 'U' THEN CONCAT('0',detpro.cantidad) WHEN 'P' THEN detpro.cantidad END CASE cantidad,\n"
+//                    //query=  "SELECT detpro.cantidad,\n"
+//                    + "cat.nomCategoria,pro.codigo,pro.producto,pro.precio,detpro.importe\n"
+//                    + "                    FROM tcategoria cat\n"
+//                    + "                    INNER JOIN tproductos pro ON cat.idCategoria=pro.idCategoria\n"
+//                    + "                    INNER JOIN tdetaproforma detpro ON pro.idProducto=detpro.idProducto\n"
+//                    + "                    WHERE detpro.idProforma=(SELECT idProforma FROM tproforma WHERE nroProforma LIKE ?)";
+//            pst = c.conectar().prepareStatement(query);
+//            pst.setString(1, getNroProforma());
+//            rs = pst.executeQuery();
+            query="CALL SP_MostrarTablaItems(?);";
+            cst=c.conectar().prepareCall(query);
+            cst.setString(1, getNroProforma());
+            rs=cst.executeQuery();
+            
             DefaultTableModel model = new DefaultTableModel();
             model.addColumn("Cantidad");
             model.addColumn("Categoria");
             model.addColumn("Codigo");
-            model.addColumn("Producto");            
+            model.addColumn("Producto");
             model.addColumn("Precio U.");
             model.addColumn("Importe");
-            
+
             Object[] fila = new Object[6];
             while (rs.next()) {
 
@@ -159,8 +164,6 @@ public class codProf_Busquedas {
                 fila[3] = rs.getString(4);
                 fila[4] = rs.getDouble(5);
                 fila[5] = rs.getDouble(6);
-                
-                
 
                 model.addRow(fila);
             }

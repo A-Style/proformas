@@ -260,10 +260,24 @@ public class itf_Busqueda extends javax.swing.JInternalFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
 
-        cBusqueda.setNroProforma(txtProforma.getText());
-        cBusqueda.setCodigo(txtCodigo.getText());
-        cBusqueda.setProducto(txtProducto.getText());
-        cBusqueda.setCategoria(cboCategoria.getSelectedItem().toString());
+        String nroproforma="",codigo="",producto="",categoria="";
+        if (chekProforma.isSelected()) {
+            nroproforma=txtProforma.getText();
+        }
+        if (chekCodigo.isSelected()) {
+            codigo=txtCodigo.getText();
+        }
+        if (chekProducto.isSelected()) {
+            producto=txtProducto.getText();
+        }
+        if (chekCategoria.isSelected()) {
+            categoria=cboCategoria.getSelectedItem().toString();
+        }
+        
+        cBusqueda.setNroProforma(nroproforma);
+        cBusqueda.setCodigo(codigo);
+        cBusqueda.setProducto(producto);
+        cBusqueda.setCategoria(categoria);
         cBusqueda.mostrarTablaBusqueda(tablaItems);
         
         int contarPaquete=0;

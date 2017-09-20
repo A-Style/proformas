@@ -27,7 +27,7 @@ public class codBus_Busqueda {
                     + "prof.nroProforma,\n"
                     + "prof.fecha,\n"
                     + "prod.formato,\n"
-                    + "prod.tipo,\n"
+                    + "CASE prod.tipo WHEN 'V' THEN 'Vidrio' WHEN 'P' THEN 'Plastico' WHEN 'T' THEN 'Tetrapack' END 'Tipo',\n"
                     + "CASE detpro.tipo WHEN 'U' THEN 'Unidad' WHEN 'P' THEN 'Paquete' END 'U.Medida',\n"
                     + "prod.codigo,\n"
                     + "detpro.cantidad,\n"
@@ -39,12 +39,13 @@ public class codBus_Busqueda {
                     + "INNER JOIN tdetaproforma detpro ON prof.idProforma=detpro.idProforma\n"
                     + "INNER JOIN tproductos prod ON prod.idProducto=detpro.idProducto\n"
                     + "INNER JOIN tcategoria cat ON cat.idCategoria=prod.idCategoria \n"
-                    + "WHERE prof.nroProforma= ? OR prod.codigo= ? OR (prod.producto= ? OR cat.nomCategoria= ?)";
+                    + "WHERE prof.nroProforma= ? OR prod.codigo= ? OR (prod.producto like ? OR cat.nomCategoria= ?)\n"
+                    + "ORDER BY prof.fecha";
 
             pst = c.conectar().prepareStatement(query);
             pst.setString(1, getNroProforma());
             pst.setString(2, getCodigo());
-            pst.setString(3,getProducto());
+            pst.setString(3,"%"+getProducto()+"%");
             pst.setString(4,getCategoria());
             rs = pst.executeQuery();
             DefaultTableModel model = new DefaultTableModel();

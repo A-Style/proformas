@@ -5,6 +5,7 @@
  */
 package vista.internal;
 
+import codigo.chart.codigoChart;
 import java.awt.BorderLayout;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -19,54 +20,56 @@ import org.jfree.data.general.DefaultPieDataset;
  */
 public class itf_Charts extends javax.swing.JInternalFrame {
 
-     DefaultCategoryDataset Datos = new DefaultCategoryDataset();
-     DefaultPieDataset  DatosPie = new DefaultPieDataset ();
-     
-    public JFreeChart Grafica,Grafica2;
-    
+//     DefaultCategoryDataset Datos = new DefaultCategoryDataset();
+//     DefaultPieDataset  DatosPie = new DefaultPieDataset ();
+//     
+//    public JFreeChart Grafica,Grafica2;
+    codigoChart codC=new codigoChart();
     public itf_Charts() {
         initComponents();
-        
-         Datos.addValue(1, "Negocio 1", "Lunes");
-        Datos.addValue(2, "Negocio 1", "Martes");
-        Datos.addValue(3, "Negocio 1", "Miércoles");
-        Datos.addValue(4, "Negocio 1", "Jueves");
-        Datos.addValue(5, "Negocio 1", "Viernes");
-        Datos.addValue(6, "Negocio 1", "Sábado");
-        Datos.addValue(7, "Negocio 1", "Domingo");
-
-        Grafica = ChartFactory.createBarChart("Visitas diarias",
-                "Días", "Visitas", Datos,
-                PlotOrientation.VERTICAL, true, true, false);
-        
-        
-        
-        DatosPie.setValue( "Negocio 1", 3);
-        DatosPie.setValue( "Negocio 2", 5);
-        DatosPie.setValue("Negocio 3", 6);
-       
-
-        Grafica2 = ChartFactory.createPieChart("Titulo",DatosPie);
-        
-        try {
-           
-            ChartPanel myChart = new ChartPanel(Grafica);
-            myChart.setMouseWheelEnabled(true);
-            chart1.setLayout(new java.awt.BorderLayout());
-            chart1.add(myChart, BorderLayout.CENTER);
-            chart1.setSize(450, 400);
-            chart1.validate();
-            
-            
-            ChartPanel myChart2 = new ChartPanel(Grafica2);
-            myChart2.setMouseWheelEnabled(true);
-            chart2.setLayout(new java.awt.BorderLayout());
-            chart2.add(myChart2, BorderLayout.CENTER);
-            chart2.setSize(450, 400);
-            chart2.validate();
-            
-        } catch (Exception e) {
-        }
+        codC.chartBar(chart1);
+        codC.chartPie(chart2);
+        codC.chartBigBar(chart3);
+//         Datos.addValue(1, "Negocio 1", "Lunes");
+//        Datos.addValue(2, "Negocio 1", "Martes");
+//        Datos.addValue(3, "Negocio 1", "Miércoles");
+//        Datos.addValue(4, "Negocio 1", "Jueves");
+//        Datos.addValue(5, "Negocio 1", "Viernes");
+//        Datos.addValue(6, "Negocio 1", "Sábado");
+//        Datos.addValue(7, "Negocio 1", "Domingo");
+//
+//        Grafica = ChartFactory.createBarChart("Visitas diarias",
+//                "Días", "Visitas", Datos,
+//                PlotOrientation.VERTICAL, true, true, false);
+//        
+//        
+//        
+//        DatosPie.setValue( "Negocio 1", 3);
+//        DatosPie.setValue( "Negocio 2", 5);
+//        DatosPie.setValue("Negocio 3", 6);
+//       
+//
+//        Grafica2 = ChartFactory.createPieChart("Titulo",DatosPie);
+//        
+//        try {
+//           
+//            ChartPanel myChart = new ChartPanel(Grafica);
+//            myChart.setMouseWheelEnabled(true);
+//            chart1.setLayout(new java.awt.BorderLayout());
+//            chart1.add(myChart, BorderLayout.CENTER);
+//            chart1.setSize(450, 400);
+//            chart1.validate();
+//            
+//            
+//            ChartPanel myChart2 = new ChartPanel(Grafica2);
+//            myChart2.setMouseWheelEnabled(true);
+//            chart2.setLayout(new java.awt.BorderLayout());
+//            chart2.add(myChart2, BorderLayout.CENTER);
+//            chart2.setSize(450, 400);
+//            chart2.validate();
+//            
+//        } catch (Exception e) {
+//        }
         
     }
 
@@ -81,8 +84,9 @@ public class itf_Charts extends javax.swing.JInternalFrame {
 
         chart1 = new javax.swing.JPanel();
         chart2 = new javax.swing.JPanel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        chart3 = new javax.swing.JPanel();
+        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        jButton1 = new javax.swing.JButton();
 
         chart1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         chart1.setPreferredSize(new java.awt.Dimension(450, 400));
@@ -91,11 +95,11 @@ public class itf_Charts extends javax.swing.JInternalFrame {
         chart1.setLayout(chart1Layout);
         chart1Layout.setHorizontalGroup(
             chart1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 446, Short.MAX_VALUE)
+            .addGap(0, 396, Short.MAX_VALUE)
         );
         chart1Layout.setVerticalGroup(
             chart1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 396, Short.MAX_VALUE)
+            .addGap(0, 196, Short.MAX_VALUE)
         );
 
         chart2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -105,16 +109,30 @@ public class itf_Charts extends javax.swing.JInternalFrame {
         chart2.setLayout(chart2Layout);
         chart2Layout.setHorizontalGroup(
             chart2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 446, Short.MAX_VALUE)
+            .addGap(0, 396, Short.MAX_VALUE)
         );
         chart2Layout.setVerticalGroup(
             chart2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 396, Short.MAX_VALUE)
+            .addGap(0, 196, Short.MAX_VALUE)
         );
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        chart3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        chart3.setPreferredSize(new java.awt.Dimension(450, 400));
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        javax.swing.GroupLayout chart3Layout = new javax.swing.GroupLayout(chart3);
+        chart3.setLayout(chart3Layout);
+        chart3Layout.setHorizontalGroup(
+            chart3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 806, Short.MAX_VALUE)
+        );
+        chart3Layout.setVerticalGroup(
+            chart3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 226, Short.MAX_VALUE)
+        );
+
+        jDateChooser1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_Search_20px.png"))); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -123,26 +141,32 @@ public class itf_Charts extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(chart1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(chart2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(144, Short.MAX_VALUE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(chart3, javax.swing.GroupLayout.PREFERRED_SIZE, 810, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(chart1, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(chart2, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(146, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jDateChooser1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(chart2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(chart1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                    .addComponent(chart1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(chart2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(11, 11, 11)
+                .addComponent(chart3, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -152,7 +176,8 @@ public class itf_Charts extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel chart1;
     private javax.swing.JPanel chart2;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
+    private javax.swing.JPanel chart3;
+    private javax.swing.JButton jButton1;
+    private com.toedter.calendar.JDateChooser jDateChooser1;
     // End of variables declaration//GEN-END:variables
 }

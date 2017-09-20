@@ -74,13 +74,13 @@ public class itf_Proformas extends javax.swing.JInternalFrame {
         txtRegProducto = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
         txtRegPrecio = new javax.swing.JTextField();
-        cboProductoCategoria = new javax.swing.JComboBox<String>();
+        cboProductoCategoria = new javax.swing.JComboBox<>();
         jLabel15 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         txtRegCodigo = new javax.swing.JTextField();
         jLabel19 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        cboRegTipo = new javax.swing.JComboBox<String>();
+        cboRegTipo = new javax.swing.JComboBox<>();
         btnRegistrar_dialogProducto = new javax.swing.JButton();
         btnCancelar_dialogProducto = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -97,8 +97,8 @@ public class itf_Proformas extends javax.swing.JInternalFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        cboCategoria = new javax.swing.JComboBox<String>();
-        cboProducto = new javax.swing.JComboBox<String>();
+        cboCategoria = new javax.swing.JComboBox<>();
+        cboProducto = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
         bCategoria = new javax.swing.JButton();
         jLabel16 = new javax.swing.JLabel();
@@ -121,7 +121,7 @@ public class itf_Proformas extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaItems = new javax.swing.JTable();
         jScrollPane4 = new javax.swing.JScrollPane();
-        listProformas = new javax.swing.JList<String>();
+        listProformas = new javax.swing.JList<>();
         jLabel11 = new javax.swing.JLabel();
         txtTotalImporte = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
@@ -199,7 +199,7 @@ public class itf_Proformas extends javax.swing.JInternalFrame {
 
         jLabel14.setText("Precio");
 
-        cboProductoCategoria.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cboProductoCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jLabel15.setText("Categoria");
 
@@ -209,7 +209,7 @@ public class itf_Proformas extends javax.swing.JInternalFrame {
 
         jLabel7.setText("Tipo");
 
-        cboRegTipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Vidrio", "Plastico", "Tetrapack" }));
+        cboRegTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Vidrio", "Plastico", "Tetrapack" }));
 
         btnRegistrar_dialogProducto.setText("REGISTRAR");
         btnRegistrar_dialogProducto.addActionListener(new java.awt.event.ActionListener() {
@@ -407,7 +407,7 @@ public class itf_Proformas extends javax.swing.JInternalFrame {
 
         jLabel9.setText("Categoria");
 
-        cboCategoria.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cboCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cboCategoria.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cboCategoriaItemStateChanged(evt);
@@ -663,10 +663,10 @@ public class itf_Proformas extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(tablaItems);
 
-        listProformas.setModel(new javax.swing.AbstractListModel() {
+        listProformas.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
+            public String getElementAt(int i) { return strings[i]; }
         });
         listProformas.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -811,12 +811,12 @@ public class itf_Proformas extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_rbtnUnidadActionPerformed
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
-registrar();
-        
+        registrar();
+
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
-    private void registrar(){
-    Integer cantidad = Integer.parseInt(txtCantidad.getText());
+    private void registrar() {
+        Integer cantidad = Integer.parseInt(txtCantidad.getText());
         double importe = Double.parseDouble(txtImporte.getText());
         String tipo = "";
         if (rbtnPaquete.isSelected()) {
@@ -846,7 +846,7 @@ registrar();
         //chek.setSelected(false);
         //checkPaquete.setSelected(false);
     }
-    
+
     private void btnRegistrar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrar1ActionPerformed
 
 //        codActualizar.setNroProforma(txtProforma.getText());
@@ -880,9 +880,18 @@ registrar();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void btnRegistrar_dialogProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrar_dialogProductoActionPerformed
-
+        String tipo="";
+        if (cboRegTipo.getSelectedIndex()==0) {
+            tipo="V";
+        }else if(cboRegTipo.getSelectedIndex()==1){
+            tipo="P";
+        }else if(cboRegTipo.getSelectedIndex()==2){
+            tipo="T";
+        }
+        
         codRegistros.setMiniCodigo(txtRegCodigo.getText().toString());
-        codRegistros.setTipo(cboRegTipo.getSelectedItem().toString().substring(0, 1));//Extrae el primer char del jcombobox       
+
+        codRegistros.setTipo(tipo);  
         codRegistros.setFormato(Integer.parseInt(spFormato.getValue().toString()));
         codRegistros.setProducto(txtRegProducto.getText());
         codRegistros.setPrecio(Double.parseDouble(txtRegPrecio.getText()));
@@ -931,13 +940,12 @@ registrar();
         tablaItems.getColumn("Precio U.").setMinWidth(30);
         tablaItems.getColumn("Importe").setMinWidth(30);
 
-
-        double total=0;
+        double total = 0;
         for (int i = 0; i < tablaItems.getRowCount(); i++) {
-            total=total+Double.parseDouble(tablaItems.getValueAt(i, 5).toString());
+            total = total + Double.parseDouble(tablaItems.getValueAt(i, 5).toString());
         }
-        txtTotalImporte.setText(""+total);
-        
+        txtTotalImporte.setText("" + total);
+
     }//GEN-LAST:event_listProformasMouseClicked
 
     private void tablaItemsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaItemsMouseClicked

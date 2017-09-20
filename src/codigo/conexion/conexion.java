@@ -10,10 +10,10 @@ import javax.swing.JOptionPane;
 public class conexion {
 
     private String link;
-    private String user;
-    private String password;
+    public String user;
+    public String password;
     private String host;
-    private String database;
+    public String database;
     Connection c;
 
     public conexion() {
@@ -37,7 +37,7 @@ public class conexion {
         c = null;
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            c = DriverManager.getConnection(this.link, this.user, this.password);
+            c = DriverManager.getConnection(this.link, this.getUser(), this.getPassword());
             //c = DriverManager.getConnection(leerDatos()[0], leerDatos()[1], leerDatos()[2]);
             System.out.println("Conexion Exitosa");
         } catch (Exception e) {
@@ -96,5 +96,29 @@ public class conexion {
 
         return datos;
     }
+
+    /**
+     * @return the user
+     */
+    public String getUser() {
+        return user;
+    }
+
+    /**
+     * @return the password
+     */
+    public String getPassword() {
+        return password;
+    }
+
+    /**
+     * @return the database
+     */
+    public String getDatabase() {
+        return database;
+    }
+    
+    
+    
 
 }
